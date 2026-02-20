@@ -1,28 +1,73 @@
-/// Temporary data storage for todo items
-let todos =[];
+const todoForm = document.getElementById('todoForm');
+const todoInput = document.getElementById('todoInput');
+const dateInput = document.getElementById('dateInput');
+const todoTableBody = document.querySelector('#todoTable tbody');
+const statusFilter = document.getElementById('statusFilter');
 
-/// Function to add a new todo item
-function addTodo() {
-    const todoInput = document.getElementById('todo-input');
-    const todoDate = document.getElementById('todo-date');
+let todos = [];
 
-   /// Basic validation to ensure both fields are filled
-    if (todoInput.value.trim() === '' || todoDate.value === '') {
-        alert('Please enter a todo item and select a due date.');
-    } else {
-        // Create a new todo object and it to the todos array
-        const newTodo ={
-            text: todoInput.value,
-            date: todoDate.value
-        };
+// Add Todo
+todoForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const todoText = todoInput.value.trim();
+  const todoDate = dateInput.value;
+  if (!todoText || !todoDate) return;
 
-        // Add the new todo to the array
-        todos.push(newTodo);
-    }
+  const newTodo = {
+    id: Date.now(),
+    text: todoText,
+    date: todoDate,
+    status: new Date(todoDate) < new Date() ? 'done' : 'pending'
+  };
+
+  todos.push(newTodo);
+  todoInput.value = '';
+  dateInput.value = '';
+  renderTodos();
+});
+
+// Render Todos
+function renderTodos() {
+  const filter = statusFilter.value;
+  todoTableBody.innerHTML = '';
+
+  todos
+    .filter(todo => filter === 'all' ? true : todo.status === filter)
+    .forEach(todo => {
+      const tr = document.createElement('tr');
+
+      // Check if date passed for auto done
+      if (new Date(todo.date) < new Date() && todo.status !== 'done') {
+        todo.status = 'done';
+      }
+
+      tr.innerHTML = `
+        <td>${todo.text}</td>
+        <td>${todo.date}</td>
+        <td>${todo.status}</td>
+        <td>
+          ${todo.status === 'pending' ? `<button class="action-btn done-btn" onclick="markDone(${todo.id})">Done</button>` : ''}
+          <button class="action-btn delete-btn" onclick="deleteTodo(${todo.id})">Delete</button>
+        </td>
+      `;
+      todoTableBody.appendChild(tr);
+    });
 }
 
-function displayTodos() { }
+// Mark Done
+function markDone(id) {
+  todos = todos.map(todo => {
+    if (todo.id === id) todo.status = 'done';
+    return todo;
+  });
+  renderTodos();
+}
 
-function deleteTodo() { }
+// Delete Todo
+function deleteTodo(id) {
+  todos = todos.filter(todo => todo.id !== id);
+  renderTodos();
+}
 
-function filterTodos() { }
+// Filter
+statusFilter.addEventListener('change', renderTodos);

@@ -1,68 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List - Syarifah</title>
-
-    <!--CSS External-->
-    <link rel="stylesheet" href="css\style.css">
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List App</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <!-- Header Content -->
-    <header>
-        <h1 class="text-2xl font-bold">To Do List</h1>
-    </header>
+  <div class="container">
+    <h1>Todo List</h1>
 
-    <!-- Main Content -->
-    <main>
-        <!-- From Section -->
-        <section>
-            <form>
-                <!-- Todo Input -->
-                <input class="border p-2 rounded" type="text" id="todo-input" placeholder="Enter a new todo item">
+    <!-- Form Input -->
+    <form id="todoForm">
+      <input type="text" id="todoInput" placeholder="Add todo.." required>
+      <input type="date" id="dateInput" required>
+      <button type="submit">Add Todo</button>
+    </form>
 
-                <!-- Date Input -->
-                <input class="border p-2 rounded" type="date" id="todo-date" placeholder="Enter due date">
-            </form>
+    <!-- Filter -->
+    <div class="filter">
+      <label for="statusFilter">Filter Status:</label>
+      <select id="statusFilter">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="done">Done</option>
+      </select>
+    </div>
 
-            <!-- Add Button -->
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold-py-2 px-4 rounded" onclick="addTodo()" type="button">Add Todo</button>
-        </section>
+    <!-- Todo List Table -->
+    <table id="todoTable">
+      <thead>
+        <tr>
+          <th>Todo</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Todo items appear here -->
+      </tbody>
+    </table>
+  </div>
 
-        <!-- Action Section -->
-        <section class="flex pt-2 justify-between">
-            <!-- Clear All Button -->
-            <button class="border rounded p-2 bg-red-500 text-white">Clear All Todos</button>
-            
-            <!-- Filter Option -->
-            <button class="border rounded p-2 bg-blue-500 text-white">Filter Todos</button>
-        </section>
-
-        <!-- Todo List Section -->
-         <section class="pt-2">
-            <header>
-                <h1 class="text-2xl font-semibold">List of Todos</h1>
-            </header>
-
-            <ul class="pt-2" id="todo-list">
-                <!-- Todo items will be dynamically added here -->
-                <li>No todos available</li>
-            </ul>
-         </section>
-    </main>
-
-    <!-- Footer Content -->
-    <footer>
-        <p class="text-center text-gray-500 text-sm mt-4">© 2026 Todo List App. All rights reserved.</p>
-    </footer>
-
-    <!--Javascript External-->
-    <script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
