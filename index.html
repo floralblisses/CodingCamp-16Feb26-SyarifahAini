@@ -8,17 +8,59 @@
 
     <!--CSS External-->
     <link rel="stylesheet" href="css\style.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
     <!-- Header Content -->
-    <header></header>
+    <header>
+        <h1 class="text-2xl font-bold">To Do List</h1>
+    </header>
 
     <!-- Main Content -->
-    <main></main>
+    <main>
+        <!-- From Section -->
+        <section>
+            <form>
+                <!-- Todo Input -->
+                <input class="border p-2 rounded" type="text" id="todo-input" placeholder="Enter a new todo item">
+
+                <!-- Date Input -->
+                <input class="border p-2 rounded" type="date" id="todo-date" placeholder="Enter due date">
+            </form>
+
+            <!-- Add Button -->
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold-py-2 px-4 rounded" onclick="addTodo()" type="button">Add Todo</button>
+        </section>
+
+        <!-- Action Section -->
+        <section class="flex pt-2 justify-between">
+            <!-- Clear All Button -->
+            <button class="border rounded p-2 bg-red-500 text-white">Clear All Todos</button>
+            
+            <!-- Filter Option -->
+            <button class="border rounded p-2 bg-blue-500 text-white">Filter Todos</button>
+        </section>
+
+        <!-- Todo List Section -->
+         <section class="pt-2">
+            <header>
+                <h1 class="text-2xl font-semibold">List of Todos</h1>
+            </header>
+
+            <ul class="pt-2" id="todo-list">
+                <!-- Todo items will be dynamically added here -->
+                <li>No todos available</li>
+            </ul>
+         </section>
+    </main>
 
     <!-- Footer Content -->
-    <footer></footer>
+    <footer>
+        <p class="text-center text-gray-500 text-sm mt-4">© 2026 Todo List App. All rights reserved.</p>
+    </footer>
 
     <!--Javascript External-->
     <script src="js/script.js"></script>
